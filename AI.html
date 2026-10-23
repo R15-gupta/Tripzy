@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TripPilot - Real World Ski & Indian Travel Planner</title>
+    <link rel="stylesheet" href="AI.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <!-- EmailJS SDK for Direct Browser Email Dispatch -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <!---- Font Awesome Icons -------->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!------------Header Section-------------->
+    <header>
+        <div id="menu-bar" class="fas fa-bars"></div>
+   
+        <a href="#home" class="logo"><span>Trip</span>Pilot 🇮🇳</a>
+        <nav class="navbar">
+            <a href="#home">home</a>
+            <a href="#book">book now</a>
+            <a href="#packages">packages</a>
+            <a href="#services">services</a>
+            <a href="#gallery">gallery</a>
+            <a href="#contact">contact</a>
+            <a href="register.html">register</a>
+        </nav>
+
+        <div class="icons">
+            <i class="fas fa-search" id="search-btn"></i>
+            <div class="user-logged-in-box" id="user-logged-in-box" style="display: none;">
+                <span class="user-name-tag" id="user-name-tag"><i class="fas fa-user-circle"></i> <span id="user-name-text">User</span></span>
+                <i class="fas fa-sign-out-alt" id="logout-btn" title="Logout"></i>
+            </div>
+            <a href="register.html" class="fas fa-user" id="login-btn" title="Login / Register"></a>
+        </div>
+        <form action="" class="search-bar-container" id="search-form">
+            <input type="search" id="search-bar" placeholder="Search Indian destinations (e.g. Kashi, Gulmarg, Kedarnath)...">
+            <label for="search-bar" class="fas fa-search" id="search-submit-btn"></label>
+        </form>
+    </header>
+    <!------------Header Section End-------------->   
+
+    <!--Home Section Starts-->
+    <section class="home" id="home">
+        <div class="content">
+            <h3>Explore Incredible India</h3>
+            <p>Discover sacred temples, Himalayan ski slopes, & heritage marvels with instant SMS booking confirmations!</p>
+            <a href="#packages" class="btn">discover packages</a>
+        </div>
+
+        <div class="controls">
+            <span class="vid-btn active" data-src="tripimage/roadmap1.mp4"></span>
+            <span class="vid-btn" data-src="tripimage/statue2.mp4"></span>
+            <span class="vid-btn" data-src="tripimage/green3.mp4"></span>
+            <span class="vid-btn" data-src="tripimage/kashmir4.mp4"></span>
+            <span class="vid-btn" data-src="tripimage/beach5.mp4"></span>
+        </div>
+
+        <div class="video-container">
+            <video src="tripimage/roadmap1.mp4" id="video-slider" loop autoplay muted></video>
+        </div>
+    </section>
+    <!--Home Section End-->
+
+    <!--Book Now Section-->
+    <section class="book" id="book">
+        <h1 class="heading"> 
+            <span>B</span>
+            <span>O</span>
+            <span>O</span>
+            <span>K</span>
+            <span class="space"></span>
+            <span>N</span>
+            <span>O</span>
+            <span>W</span>
+        </h1>
+
+        <div style="text-align:center; margin-bottom: 2rem;">
+            <a href="#home" class="btn" style="background:#1e293b; border-color:#334155; color:#fff; padding:0.8rem 2.2rem; font-size:1.4rem; display:inline-flex; align-items:center; gap:0.8rem;">
+                <i class="fas fa-arrow-left"></i> Back to Main Home
+            </a>
+        </div>
+        <div class="row">
+            <div class="image">
+                <img src="tripimage/gulmarg_ski.png" style="height:540px; object-fit:cover; border-radius:.5rem;" alt="Ski Trip & Indian Travel">
+            </div>
+
+            <form action="" id="booking-main-form">
+                <div class="inputBox">
+                    <h3>Where To (Destination)</h3>
+                    <input type="text" id="book-place" placeholder="e.g. Gulmarg Ski Resort, Kashi Temple..." required>
+                </div>
+
+                <div class="inputBox">
+                    <h3>Contact Mobile Number 📱</h3>
+                    <input type="tel" id="book-phone" placeholder="Enter 10-digit mobile number (e.g. 9876543210)" pattern="[0-9]{10}" maxlength="10" required>
+                </div>
+
+                <div class="inputBox">
+                    <h3>Trip Category / Type</h3>
+                    <select id="book-type" style="width:100%; padding:1rem; border:.1rem solid rgba(0,0,0,.1); font-size:1.5rem; color:#333; text-transform:none; margin:.5rem 0; border-radius:.5rem; background:#f7f7f7;">
+                        <option value="Ski & Snowboard Alpine Expedition">🎿 Ski & Snowboard Alpine Trip</option>
+                        <option value="Kashi & Sacred Temple Pilgrimage">🛕 Temple Pilgrimage (Kashi / Kedarnath)</option>
+                        <option value="Indian Heritage & Mountain Tour">🏔️ Indian Heritage & Mountain Tour</option>
+                    </select>
+                </div>
+
+                <div class="inputBox">
+                    <h3>How Many Guests</h3>
+                    <input type="number" id="book-guests" min="1" max="50" placeholder="Number of guests" value="2" required>
+                </div>
+
+                <div class="inputBox">
+                    <h3>Arrival Date (Check-in)</h3>
+                    <input type="date" id="book-arrival" required>
+                </div>
+
+                <div class="inputBox">
+                    <h3>Leaving Date (Check-out)</h3>
+                    <input type="date" id="book-leaving" required>
+                </div>
+
+                <!-- Dynamic Duration Badge Display -->
+                <div id="duration-badge-box" class="duration-badge-box" style="display:none; width:100%; margin:1rem 0; padding:1.2rem; background:#e0f2fe; border-left:5px solid #0284c7; border-radius:.5rem; font-size:1.5rem; color:#0369a1; font-weight:bold;">
+                    <i class="fas fa-calendar-check"></i> Trip Duration: <span id="duration-text-span">0 Days / 0 Nights</span>
+                </div>
+
+                <div style="display:flex; gap:1.2rem; flex-wrap:wrap; align-items:center; margin-top:1rem;">
+                    <input type="submit" class="btn" value="Confirm & Book Now" style="flex:1; margin-top:0;">
+                    <a href="#home" class="btn" style="background:#475569; border-color:#475569; text-align:center; text-decoration:none; margin-top:0; color:#fff;">
+                        <i class="fas fa-home"></i> Back to Home
+                    </a>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!--Book End Section-->
+
+    <!--Packages Section-->
+    <section class="packages" id="packages">  
+        <h1 class="heading">  
+            <span>P</span>  
+            <span>A</span>  
+            <span>C</span>  
+            <span>K</span>  
+            <span>A</span>  
+            <span>G</span>  
+            <span>E</span>  
+            <span>S</span>  
+        </h1>  
+
+        <div class="box-container">
+            <!-- Gulmarg Ski Resort -->
+            <div class="box">  
+                <img src="tripimage/gulmarg_ski.png" alt="Gulmarg Ski Resort">  
+                <div class="content">  
+                    <h3><i class="fas fa-skiing"></i> Gulmarg Ski Resort, Kashmir</h3>  
+                    <p>Experience world-class snow slopes, Gondola cable car ride, full ski gear rentals & certified instructors.</p>  
+                    <a href="#book" class="btn book-package-btn" data-place="Gulmarg Ski Resort, Kashmir">Book Ski Trip</a>  
+                </div>  
+            </div>
+
+            <!-- Kashi Vishwanath Temple (Famous Request) -->
+            <div class="box">  
+                <img src="tripimage/kashi_temple.png" alt="Kashi Vishwanath Temple">  
+                <div class="content">  
+                    <h3><i class="fas fa-place-of-worship"></i> Kashi Vishwanath, Varanasi</h3>  
+                    <p>Sacred Ganges Ganga Aarti, VIP Darshan at ancient Kashi Vishwanath Jyotirlinga & ghat boat tour.</p>  
+                    <a href="#book" class="btn book-package-btn" data-place="Kashi Vishwanath Temple, Varanasi">Book Now</a>  
+                </div>  
+            </div>
+
+            <!-- Solang Valley Ski Slopes Manali -->
+            <div class="box">  
+                <img src="tripimage/gallery7.jpg" alt="Solang Valley Skiing">  
+                <div class="content">  
+                    <h3><i class="fas fa-mountain"></i> Solang Valley Skiing, Manali</h3>  
+                    <p>Thrilling Himalayan snow adventures, beginner & expert ski trails, Atal Tunnel expedition & cozy lodge stay.</p>  
+                    <a href="#book" class="btn book-package-btn" data-place="Solang Valley Ski Slopes, Manali">Book Ski Trip</a>  
+                </div>  
+            </div>
+
+            <!-- Taj Mahal Agra -->
+            <div class="box">  
+                <img src="tripimage/taj_mahal.png" alt="Taj Mahal Agra">  
+                <div class="content">  
+                    <h3><i class="fas fa-monument"></i> Taj Mahal & Agra Fort</h3>  
+                    <p>Marvel at the world-famous marble monument of love, heritage walks, sunrise view, & royal Mughlai dining.</p>  
+                    <a href="#book" class="btn book-package-btn" data-place="Taj Mahal & Agra Fort">Book Now</a>  
+                </div>  
+            </div>
+
+            <!-- Kedarnath Dham -->
+            <div class="box">  
+                <img src="tripimage/gallery1.jpg" alt="Kedarnath Dham">  
+                <div class="content">  
+                    <h3><i class="fas fa-place-of-worship"></i> Kedarnath & Badrinath Dham</h3>  
+                    <p>Sacred Himalayan pilgrimage in Garhwal hills, divine Shiva darshan, thermal springs & scenic trek.</p>  
+                    <a href="#book" class="btn book-package-btn" data-place="Kedarnath & Badrinath Dham">Book Now</a>  
+                </div>  
+            </div>
+
+            <!-- Mumbai Coastal -->
+            <div class="box">  
+                <img src="tripimage/mumbai.jpg" alt="Mumbai">  
+                <div class="content">  
+                    <h3><i class="fas fa-map-marker-alt"></i> Mumbai City & Marine Drive</h3>  
+                    <p>Gateway of India, Marine Drive promenade, Elephanta Caves ferry, and vibrant coastal culture.</p>  
+                    <a href="#book" class="btn book-package-btn" data-place="Mumbai City & Marine Drive">Book Now</a>  
+                </div>  
+            </div>
+        </div>
+    </section>
+    <!--Packages Section End-->
+
+    <!--Services Section -->
+    <section class="services" id="services">
+        <h1 class="heading"> 
+            <span>S</span>
+            <span>E</span>
+            <span>R</span>
+            <span>V</span>
+            <span>I</span>
+            <span>C</span>
+            <span>E</span>
+            <span>S</span>
+        </h1>
+
+        <div class="box-container">
+            <div class="box">
+                <i class="fas fa-map-marked-alt"></i>
+                <h3>Tour & Sightseeing Guide</h3>
+                <p>Expert local destination guides, sightseeing itineraries, and travel route recommendations across India.</p>
+            </div>
+            <div class="box">
+                <i class="fas fa-utensils"></i>
+                <h3>Authentic Food & Drink</h3>
+                <p>Savor authentic local delicacies, Banarasi street food, Kashmiri Kahwa, and Mughlai culinary tours.</p>
+            </div>
+            <div class="box">
+                <i class="fa fa-envelope-open-text"></i>
+                <h3>Instant Email Confirmation 📧</h3>
+                <p>Receive real-time email notifications with full booking reference, dates, and ski trip inclusions in your inbox!</p>
+            </div>
+            <div class="box">
+                <i class="fa fa-skiing"></i>
+                <h3>Ski & Snow Gear Rental</h3>
+                <p>Complete professional equipment setup including Skis, Snowboards, Boots, Helmets & Certified Instructors.</p>
+            </div>
+            <div class="box">
+                <i class="fa fa-plane"></i>
+                <h3>Fastest Travel</h3>
+                <p>Quick booking for flight tickets, Vande Bharat train seats, & comfortable private cab transfers.</p>
+            </div>
+            <div class="box">
+                <i class="fa fa-hiking"></i>
+                <h3>Indian Mountain Adventures</h3>
+                <p>Explore high-altitude Himalayan trekking trails, rafting in Rishikesh, & desert safaris in Jaisalmer.</p>
+            </div>
+        </div>
+    </section>
+
+    <!--Gallery Section-->
+    <section class="gallery" id="gallery">
+        <h1 class="heading"> 
+            <span>G</span>
+            <span>A</span>
+            <span>L</span>
+            <span>L</span>
+            <span>E</span>
+            <span>R</span>
+            <span>Y</span>
+        </h1>
+
+        <div class="box-container">
+            <!-- Kashi Temple -->
+            <div class="box">
+                <img src="tripimage/kashi_temple.png" alt="Kashi Vishwanath Temple">
+                <div class="content">
+                    <h3>kashi vishwanath</h3>
+                    <p>"Where spirituality meets the eternal river Ganges in Varanasi."</p>
+                    <button class="btn see-more-btn" data-place="kashi-temple">see more</button>
+                </div>
+            </div>
+            <!-- Gulmarg Ski Resort -->
+            <div class="box">
+                <img src="tripimage/gulmarg_ski.png" alt="Gulmarg Ski Resort">
+                <div class="content">
+                    <h3>gulmarg ski resort</h3>
+                    <p>"Asia's premier powder snow ski paradise & Gondola cable car."</p>
+                    <button class="btn see-more-btn" data-place="gulmarg-ski">see more</button>
+                </div>
+            </div>
+            <!-- Kedarnath -->
+            <div class="box">
+                <img src="tripimage/gallery1.jpg" alt="Kedarnath">
+                <div class="content">
+                    <h3>kedarnath dham</h3>
+                    <p>"Where the soul finds silence and Lord Shiva speaks."</p>
+                    <button class="btn see-more-btn" data-place="kedarnath">see more</button>
+                </div>
+            </div>
+            <!-- India Gate -->
+            <div class="box">
+                <img src="tripimage/gallery8.jpg" alt="India Gate">
+                <div class="content">
+                    <h3>india gate delhi</h3>
+                    <p>"Standing tall in the heart of India — a tribute to the brave."</p>
+                    <button class="btn see-more-btn" data-place="india-gate">see more</button>
+                </div>
+            </div>
+            <!-- Taj Mahal -->
+            <div class="box">
+                <img src="tripimage/taj_mahal.png" alt="Taj Mahal Agra">
+                <div class="content">
+                    <h3>taj mahal agra</h3>
+                    <p>"The eternal monument of white marble love."</p>
+                    <button class="btn see-more-btn" data-place="taj-mahal">see more</button>
+                </div>
+            </div>
+            <!-- Buddha Park Sikkim -->
+            <div class="box">
+                <img src="tripimage/gallery2.jpg" alt="Buddha Park">
+                <div class="content">
+                    <h3>buddha park sikkim</h3>
+                    <p>"Golden 130ft Buddha statue set against snow peaks."</p>
+                    <button class="btn see-more-btn" data-place="buddha-park">see more</button>
+                </div>
+            </div>
+            <!-- Kerala -->
+            <div class="box">
+                <img src="tripimage/gallery4.jpg" alt="Kerala">
+                <div class="content">
+                    <h3>kerala backwaters</h3>
+                    <p>"God's Own Country wrapped in green backwaters & palms."</p>
+                    <button class="btn see-more-btn" data-place="kerala">see more</button>
+                </div>
+            </div>
+            <!-- Nahargarh Fort -->
+            <div class="box">
+                <img src="tripimage/gallery6.jpg" alt="Nahargarh Fort">
+                <div class="content">
+                    <h3>nahargarh fort jaipur</h3>
+                    <p>"Perched high above the Pink City, royal Rajput grandeur."</p>
+                    <button class="btn see-more-btn" data-place="nahargarh-fort">see more</button>
+                </div>
+            </div>
+            <!-- Natural Spring Manali -->
+            <div class="box">
+                <img src="tripimage/gallery7.jpg" alt="Vashisht Manali">
+                <div class="content">
+                    <h3>manali & vashisht</h3>
+                    <p>"Natural hot springs & pine valley mountain vistas."</p>
+                    <button class="btn see-more-btn" data-place="natural-spring">see more</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Gallery Section End-->
+
+
+
+    <!--Contact Section-->
+    <section class="contact" id="contact">
+        <h1 class="heading">
+            <span>C</span>
+            <span>O</span>
+            <span>N</span>
+            <span>T</span>
+            <span>A</span>
+            <span>C</span>
+            <span>T</span>
+        </h1>
+
+        <div class="row">
+            <div class="image">
+                <video autoplay muted loop src="tripimage/beach5.mp4" style="height: 350px; width: 100%; object-fit: cover; border-radius: .5rem;"></video>
+            </div>
+            <form action="" onsubmit="event.preventDefault(); alert('Dhanyawad! Thank you for contacting TripPilot. We will reply to your email shortly.');">
+                <div class="inputBox">
+                    <input type="text" placeholder="Name" required>
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="inputBox">
+                    <input type="number" placeholder="Mobile Number">
+                    <input type="text" placeholder="Subject">
+                </div>
+                <textarea placeholder="Write your message or custom trip requirements..." cols="30" rows="10" required></textarea>
+                <input type="submit" class="btn" value="send message">
+            </form>
+        </div>
+    </section>
+    <!--Contact End-->
+
+    <!--Brand Section-->
+    <section class="brand-container">
+        <div class="brand-column">
+            <div class="brand-logo"><img src="tripimage/logo1.jpeg" alt="Logo 1"></div>
+            <div class="brand-logo"><img src="tripimage/logo5.jpeg" alt="Logo 2"></div>
+            <div class="brand-logo"><img src="tripimage/logo3.jpeg" alt="Logo 3"></div>
+            <div class="brand-logo"><img src="tripimage/logo2.jpeg" alt="Logo 4"></div>
+            <div class="brand-logo"><img src="tripimage/logo7.jpeg" alt="Logo 5"></div>
+            <div class="brand-logo"><img src="tripimage/logo6.jpeg" alt="Logo 6"></div>
+            <div class="brand-logo"><img src="tripimage/logo4.jpeg" alt="Logo 7"></div>
+        </div>
+    </section>
+    <!--Brand Section End-->
+
+    <!--Footer Section-->
+    <section class="footer">
+        <div class="about-footer">
+            <h3>About TripPilot India</h3>
+            <p>
+                TripPilot is a real-world AI travel platform dedicated to exploring Incredible India!
+                From Kashi Vishwanath temple darshan to Gulmarg ski adventures, we deliver instant email confirmations,
+                custom itineraries, and seamless booking for travelers.
+            </p>
+        </div>
+
+        <div class="box-container">
+            <div class="box">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#book">Book Now</a>
+                <a href="#packages">Packages</a>
+                <a href="#services">Services</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="box">
+                <h3>Follow Us</h3>
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+
+        <h1 class="credit"> Created by <span>TripPilot Team</span> | All Rights Reserved!</h1>
+    </section>
+
+    <!-- Gallery Destination Details Modal -->
+    <div class="gallery-modal-container" id="gallery-modal">
+        <div class="gallery-modal-content">
+            <span class="modal-close" id="modal-close">&times;</span>
+            <div class="modal-header-img">
+                <img id="modal-img" src="" alt="Destination Image">
+                <div class="modal-badge" id="modal-badge"><i class="fas fa-map-marked-alt"></i> Destination Info</div>
+            </div>
+            <div class="modal-body-content">
+                <h2 id="modal-title">Destination Title</h2>
+                <p class="modal-tagline" id="modal-tagline">Tagline</p>
+                
+                <div class="modal-info-box">
+                    <h3><i class="fas fa-map-marker-alt"></i> Location</h3>
+                    <p id="modal-location">Location details</p>
+                </div>
+
+                <div class="modal-info-box">
+                    <h3><i class="fas fa-route"></i> Distance & How to Reach</h3>
+                    <ul id="modal-distances" class="modal-list"></ul>
+                </div>
+
+                <div class="modal-info-box">
+                    <h3><i class="fas fa-compass"></i> Top Attractions & Activities</h3>
+                    <ul id="modal-attractions" class="modal-list attractions-grid"></ul>
+                </div>
+
+                <div class="modal-info-box">
+                    <h3><i class="fas fa-calendar-check"></i> Best Time to Visit</h3>
+                    <p id="modal-best-time">Best time info</p>
+                </div>
+
+                <div class="modal-action-bar">
+                    <button class="btn modal-book-btn" id="modal-book-btn">
+                        <i class="fas fa-plane-departure"></i> Book Trip to this Destination
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interactive Location Map Modal -->
+    <div class="map-modal-container" id="map-modal">
+        <div class="map-modal-content">
+            <span class="modal-close" id="map-modal-close">&times;</span>
+            <div class="map-modal-header">
+                <h2><i class="fas fa-map-marked-alt" style="color: var(--orange);"></i> <span id="map-location-title">Location Map</span></h2>
+                <p id="map-location-subtitle">Live Location & Map View</p>
+            </div>
+            
+            <div class="map-iframe-wrapper">
+                <iframe id="google-map-iframe" src="" width="100%" height="350" style="border:0; border-radius: 1rem;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+            <div class="map-action-bar">
+                <button class="btn" id="map-book-btn">
+                    <i class="fas fa-plane-departure"></i> Book Trip to this Place
+                </button>
+                <a id="external-map-link" href="#" target="_blank" class="btn google-maps-ext-btn">
+                    <i class="fas fa-external-link-alt"></i> Open in Google Maps
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real-time Booking Confirmation Modal (Clean Ticket Card) -->
+    <div class="sms-modal-container" id="sms-modal">
+        <div class="booking-confirm-wrapper">
+            <div class="booking-confirm-header">
+                <button type="button" class="back-home-header-btn" id="sms-modal-back-home" title="Go back to Home">
+                    <i class="fas fa-arrow-left"></i> Home
+                </button>
+                <div class="confirm-icon-box">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="confirm-header-text">
+                    <h3>Booking Confirmed!</h3>
+                    <p>Your travel itinerary has been registered successfully</p>
+                </div>
+                <i class="fas fa-times" id="sms-modal-close" title="Close"></i>
+            </div>
+
+            <div class="booking-confirm-body">
+                <div class="booking-ticket-card" id="sms-bubble-body">
+                    <!-- Dynamic confirmation details placed here -->
+                </div>
+
+                <div class="booking-notice-box">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <h4>Booking Status: Confirmed</h4>
+                        <p>Booking reference saved. Dispatched to mobile: +91 <span id="sms-recipient-display">9876543210</span>.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-confirm-footer">
+                <button type="button" class="btn home-btn" id="sms-home-btn">
+                    <i class="fas fa-home"></i> Back to Home
+                </button>
+                <button type="button" class="btn print-btn" id="sms-print-btn" onclick="window.print()">
+                    <i class="fas fa-print"></i> Print Ticket
+                </button>
+                <button type="button" class="btn done-btn" id="sms-ok-btn">
+                    <i class="fas fa-check"></i> Done
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Back to Home Button -->
+    <a href="#home" id="floating-home-btn" class="floating-home-btn" title="Back to Main Home">
+        <i class="fas fa-home"></i> <span>Back to Home</span>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-------JS Integration ---------->
+    <script src="AI.js"></script>
+</body>
+</html>
