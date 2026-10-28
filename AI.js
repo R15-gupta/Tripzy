@@ -42,6 +42,8 @@ if (menu) {
     menu.addEventListener('click', () => {
         menu.classList.toggle('fa-times');
         navbar.classList.toggle('active');
+        if (searchBtn) searchBtn.classList.remove('fa-times');
+        if (searchBar) searchBar.classList.remove('active');
     });
 }
 
@@ -109,15 +111,34 @@ window.addEventListener('scroll', () => {
 
 // Toggle search bar
 if (searchBtn) {
-    searchBtn.addEventListener('click', () => {
+    searchBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         searchBtn.classList.toggle('fa-times');
         searchBar.classList.toggle('active');
+        if (navbar) navbar.classList.remove('active');
+        if (menu) menu.classList.remove('fa-times');
+        if (searchBar && searchBar.classList.contains('active')) {
+            const input = searchBar.querySelector('#search-bar');
+            if (input) input.focus();
+        }
     });
 }
+
+// Click outside header search bar to close
+document.addEventListener('click', (e) => {
+    if (searchBar && searchBar.classList.contains('active')) {
+        if (!searchBar.contains(e.target) && e.target !== searchBtn && !searchBtn.contains(e.target)) {
+            searchBar.classList.remove('active');
+            if (searchBtn) searchBtn.classList.remove('fa-times');
+        }
+    }
+});
 
 // ESC key shortcut to close all active modals & menus
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
+        const logoutModal = document.querySelector('#logout-confirm-modal');
+        if (logoutModal) logoutModal.classList.remove('active');
         if (loginForm) loginForm.classList.remove('active');
         if (galleryModal) galleryModal.classList.remove('active');
         if (mapModal) mapModal.classList.remove('active');
@@ -351,25 +372,68 @@ if (loginFormEl) {
     });
 }
 
-// Logout Action
+// Logout Action with Confirmation Modal
+const logoutConfirmModal = document.querySelector('#logout-confirm-modal');
+const logoutCancelBtn = document.querySelector('#logout-cancel-btn');
+const logoutConfirmBtn = document.querySelector('#logout-confirm-btn');
+
 if (logoutBtn) {
-    logoutBtn.addEventListener('click', () => {
+    logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (logoutConfirmModal) {
+            logoutConfirmModal.classList.add('active');
+        } else {
+            // Fallback confirmation
+            if (confirm('Are you sure you want to log out?')) {
+                clearCurrentUser();
+                updateAuthUI();
+            }
+        }
+    });
+}
+
+// Cancel / Back without logging out
+if (logoutCancelBtn) {
+    logoutCancelBtn.addEventListener('click', () => {
+        if (logoutConfirmModal) logoutConfirmModal.classList.remove('active');
+    });
+}
+
+// Confirm Logout
+if (logoutConfirmBtn) {
+    logoutConfirmBtn.addEventListener('click', () => {
+        if (logoutConfirmModal) logoutConfirmModal.classList.remove('active');
         clearCurrentUser();
         updateAuthUI();
         alert('You have logged out successfully!');
     });
 }
 
+// Close logout modal when clicking outside
+if (logoutConfirmModal) {
+    logoutConfirmModal.addEventListener('click', (e) => {
+        if (e.target === logoutConfirmModal) {
+            logoutConfirmModal.classList.remove('active');
+        }
+    });
+}
+
 updateAuthUI();
 
-/*-- Video Slider Controls --*/
+/*-- Fast Video Slider Controls --*/
 videoBtn.forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelector('.controls .active')?.classList.remove('active');
         btn.classList.add('active');
         let src = btn.getAttribute('data-src');
         let videoEl = document.querySelector('#video-slider');
-        if (videoEl) videoEl.src = src;
+        if (videoEl && src) {
+            videoEl.removeAttribute('poster');
+            videoEl.src = src;
+            videoEl.load();
+            videoEl.play().catch(() => {});
+        }
     });
 });
 

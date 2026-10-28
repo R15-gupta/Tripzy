@@ -52,15 +52,15 @@
         </div>
 
         <div class="controls">
-            <span class="vid-btn active" data-src="tripimage/roadmap1.mp4"></span>
-            <span class="vid-btn" data-src="tripimage/statue2.mp4"></span>
-            <span class="vid-btn" data-src="tripimage/green3.mp4"></span>
-            <span class="vid-btn" data-src="tripimage/kashmir4.mp4"></span>
-            <span class="vid-btn" data-src="tripimage/beach5.mp4"></span>
+            <span class="vid-btn active" data-src="tripimage/beach5.mp4" title="Tropical Beach"></span>
+            <span class="vid-btn" data-src="tripimage/kashmir4.mp4" title="Kashmir Valley"></span>
+            <span class="vid-btn" data-src="tripimage/roadmap1.mp4" title="Highway Roadtrip"></span>
+            <span class="vid-btn" data-src="tripimage/statue2.mp4" title="Heritage Wonder"></span>
+            <span class="vid-btn" data-src="tripimage/green3.mp4" title="Serene Nature"></span>
         </div>
 
         <div class="video-container">
-            <video src="tripimage/roadmap1.mp4" id="video-slider" loop autoplay muted></video>
+            <video src="tripimage/beach5.mp4" id="video-slider" loop autoplay muted playsinline preload="auto"></video>
         </div>
     </section>
     <!--Home Section End-->
@@ -546,6 +546,25 @@
                 </button>
                 <button type="button" class="btn done-btn" id="sms-ok-btn">
                     <i class="fas fa-check"></i> Done
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="logout-modal-container" id="logout-confirm-modal">
+        <div class="logout-modal-card">
+            <div class="logout-icon-bubble">
+                <i class="fas fa-sign-out-alt"></i>
+            </div>
+            <h3>Logout Confirmation</h3>
+            <p>Are you sure you want to log out? If you clicked by mistake, you can safely cancel and stay logged in.</p>
+            <div class="logout-modal-actions">
+                <button type="button" class="logout-modal-btn logout-cancel-btn" id="logout-cancel-btn">
+                    <i class="fas fa-arrow-left"></i> Cancel / Back
+                </button>
+                <button type="button" class="logout-modal-btn logout-confirm-btn" id="logout-confirm-btn">
+                    <i class="fas fa-sign-out-alt"></i> Yes, Logout
                 </button>
             </div>
         </div>
